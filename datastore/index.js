@@ -9,7 +9,15 @@ var items = {};
 
 exports.create = (text, callback) => {
   var id = counter.getNextUniqueId();
-  items[id] = text;
+  console.log(id);
+  console.log(text);
+  fs.writeFile('./data/' + id + '.txt', text, err => {
+    if (err) {
+      throw err;
+    } else {
+      console.log('Todo saved!');
+    }
+  });
   callback(null, { id, text });
 };
 
