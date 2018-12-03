@@ -8,9 +8,10 @@ var items = {};
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
+  console.log('[index.js] CREATE!')
   var id = counter.getNextUniqueId();
-  console.log(id);
-  console.log(text);
+  console.log('ID', id);
+  console.log('TEXT', text);
   fs.writeFile('./data/' + id + '.txt', text, err => {
     if (err) {
       throw err;
