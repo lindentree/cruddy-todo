@@ -1,8 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const sprintf = require('sprintf-js').sprintf;
-
-// var counter = 0;
+// exports.counterFile = './counterTest.txt';
 
 // Private helper functions ////////////////////////////////////////////////////
 
@@ -38,19 +37,17 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
+exports.getNextUniqueId = (callback) => {
   var counter;
-  // console.log('[counter.js]')
   readCounter((err, fileData) => {
     if (err) {
       console.log('Error:', err);
+      callback(null, zeroPaddedNumber(0));
     } else {
       counter = fileData + 1;
-      writeCounter(counter, () => {});
+      writeCounter(counter, callback);
     }
   });
-  console.log('[counter.js] counter', zeroPaddedNumber(counter));
-  return zeroPaddedNumber(counter);
 };
 
 
