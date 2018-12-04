@@ -176,7 +176,7 @@ describe('todos', () => {
       });
     });
 
-    it('should not create a new todo for non-existant id', (done) => {
+    it('should not create a new todo for non-existent id', (done) => {
       const initalTodoCount = fs.readdirSync(todos.dataDir).length;
       todos.update('00017', 'bad id', (err, todo) => {
         const currentTodoCount = fs.readdirSync(todos.dataDir).length;
@@ -208,7 +208,7 @@ describe('todos', () => {
       });
     });
 
-    it('should return an error for non-existant id', (done) => {
+    it('should return an error for non-existent id', (done) => {
       const initalTodoCount = fs.readdirSync(todos.dataDir).length;
       todos.delete('07829', (err) => {
         const currentTodoCount = fs.readdirSync(todos.dataDir).length;
