@@ -37,7 +37,7 @@ exports.readOne = (id, callback) => {
     if (err) {
       callback(err, null);
     } else {
-      callback(null, {id: id, text: data.toString()});
+      callback(null, {id, text: data.toString()});
     }
   });
 };
@@ -49,7 +49,7 @@ exports.update = (id, text, callback) => {
     } else {
       if (files.includes(id + '.txt')) {
         fs.writeFile(exports.dataDir + '/' + id + '.txt', text, err => {
-          callback();
+          callback(null, {id, text});
         }); 
       } else {
         callback('File does not exist');
