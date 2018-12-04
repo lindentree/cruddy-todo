@@ -8,42 +8,45 @@ var items = {};
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
-  // var id = counter.getNextUniqueId();
-  // items[id] = text;
-  // callback(null, { id, text });
   counter.getNextUniqueId((err, counterString = '0000') => {
-    if (err) {
-      
-    } else {
-      fs.writeFile(exports.dataDir + '/' + counterString + '.txt', text, err => {
+    
+    fs.writeFile(exports.dataDir + '/' + counterString + '.txt', text, err => {
+      if (err) {
+        console.log('Error: ', err);
+      } else {
+        console.log('Todo saved!');
         callback(null, {text, id: counterString});
-        if (err) {
-          // throw err;
-        } else {
-          console.log('Todo saved!');
-        }
-      });
-    }
-
+      }
+    });
   });
   
 };
 
 exports.readAll = (callback) => {
-  var data = [];
-  _.each(items, (text, id) => {
-    data.push({ id, text });
+  fs.readdir(exports.dataDir, null, (err, files) => {
+    files = files.map(file => {
+      file = file.split('.')[0];
+      return {id: file, text: file};
+    });
+    callback(null, files);
   });
-  callback(null, data);
 };
 
 exports.readOne = (id, callback) => {
-  var text = items[id];
-  if (!text) {
-    callback(new Error(`No item with id: ${id}`));
-  } else {
-    callback(null, { id, text });
-  }
+  fs.readFile(exports.dataDir + '/' + id + '.txt', null, (err, data) => {
+    if (err) {
+      // console.log('Error: ', err);
+      callback(err, null);
+    } else {
+      callback(null, {id: id, text: data.toString()});
+    }
+  });
+  // var text = items[id];
+  // if (!text) {
+  //   callback(new Error(`No item with id: ${id}`));
+  // } else {
+  //   callback(null, { id, text });
+  // }
 };
 
 exports.update = (id, text, callback) => {

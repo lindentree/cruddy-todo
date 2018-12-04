@@ -134,7 +134,7 @@ describe('todos', () => {
   });
 
   describe('readOne', () => {
-    it('should return an error for non-existant todo', (done) => {
+    it('should return an error for non-existent todo', (done) => {
       todos.readOne('notAnId', (err, todo) => {
         expect(err).to.exist;
         done();
