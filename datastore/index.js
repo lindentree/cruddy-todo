@@ -8,18 +8,25 @@ var items = {};
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
-  console.log('[index.js] CREATE!')
-  var id = counter.getNextUniqueId();
-  console.log('ID', id);
-  console.log('TEXT', text);
-  fs.writeFile('./data/' + id + '.txt', text, err => {
+  // var id = counter.getNextUniqueId();
+  // items[id] = text;
+  // callback(null, { id, text });
+  counter.getNextUniqueId((err, counterString = '0000') => {
     if (err) {
-      throw err;
+      
     } else {
-      console.log('Todo saved!');
+      fs.writeFile(exports.dataDir + '/' + counterString + '.txt', text, err => {
+        callback(null, {text, id: counterString});
+        if (err) {
+          // throw err;
+        } else {
+          console.log('Todo saved!');
+        }
+      });
     }
+
   });
-  callback(null, { id, text });
+  
 };
 
 exports.readAll = (callback) => {

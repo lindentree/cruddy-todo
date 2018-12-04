@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const sprintf = require('sprintf-js').sprintf;
-// exports.counterFile = './counterTest.txt';
 
 // Private helper functions ////////////////////////////////////////////////////
 
@@ -42,7 +41,6 @@ exports.getNextUniqueId = (callback) => {
   readCounter((err, fileData) => {
     if (err) {
       console.log('Error:', err);
-      callback(null, zeroPaddedNumber(0));
     } else {
       counter = fileData + 1;
       writeCounter(counter, callback);
